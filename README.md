@@ -4,7 +4,7 @@ This is a simple project to get the user details and the public repositories of 
 
 ## Steps to run the project in Local Development server
 1. Clone The Project.
-2. Run `npm install  in the root of the project.
+2. Run `npm install`  in the root of the project.
 3. Run `ng serve` or `npm start` for a dev server. Navigate to `http://localhost:4200/`. If you want to run in a port of your choice then Run `ng serve --port {Your PORT Number}` 
 
 ## Build
