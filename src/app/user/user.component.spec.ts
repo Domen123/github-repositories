@@ -37,4 +37,13 @@ describe('UserComponent', () => {
   it('should say false for the backword button enabled', () => {
     expect(component.isEnabled(-1,16,6,1)).toBeFalsy();
   });
+  
+  it('should increase page number', () => {
+    component.page=1;
+    component.pageSize=6;
+    component.totalRepos=16;
+    var a = component.movePage(1);
+    console.log(component.page)
+    expect(component.page==2).toBeTruthy();
+  });
 });
