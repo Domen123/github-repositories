@@ -1,21 +1,24 @@
 <div style="width: 100%;height: inherit;display: flex;" *ngIf="type=='profile'">
    <div class="avatar">
       <div class="imgAvatar loading">
-          <span  class="img"  ></span>
+          <span class="img"  ></span>
       </div>
       <div class="gitlink hi2 loading">
        <img class="icon  hi2 loading" />
-         <a  target="_blank">  </a>
+         <a target="_blank">  </a>
       </div>
    </div>
    <div class="details">
-      <h3 class="name hi2 loading">  </h3>
-      <h6     class="bio hi2 loading "> </h6>
-      <h6    class="location hi2 loading"> <img class="icon "  />   </h6>
-      <h6   class="twitter hi2 loading">  </h6>
+      <h3 class="name hi2 loading"></h3>
+      <h6 class="bio hi2 loading"></h6>
+      <h6 class="location hi2 loading">
+         <img class="icon"/>
+      </h6>
+      <h6 class="twitter hi2 loading">
+      
+      </h6>
    </div>
 </div>
-
 <div class="listReposLoader" style="width: 100%;height: inherit;" *ngIf="type=='repos'">
    <div class="repo" *ngFor="let x of [0,1,2,3,4,5]">
       <div class="repoCard">

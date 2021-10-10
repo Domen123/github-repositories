@@ -7,11 +7,9 @@ import { Component, OnInit,Input } from '@angular/core';
 })
 export class LoaderComponent implements OnInit {
   @Input() type : any;
-
   constructor() { }
-
   ngOnInit(): void {
-    console.log(this.type)
+    
   }
 
 }

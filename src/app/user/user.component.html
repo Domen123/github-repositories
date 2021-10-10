@@ -1,4 +1,4 @@
-<div class="userPage">
+<div *ngIf="!doesntExist" class="userPage">
    <div class="profile" *ngIf="userDetails">
         <div class="avatar">
            <div class="imgAvatar">
@@ -13,7 +13,7 @@
            <h3 class="name"> {{userDetails.name}} </h3>
            <h6  *ngIf="userDetails.bio"  class="bio"> {{userDetails.bio}} </h6>
            <h6  *ngIf="userDetails.location"  class="location"> <img class="icon " src="./assets/location.svg"/>  {{userDetails.location}} </h6>
-           <h6 *ngIf="userDetails.twitter_username" class="twitter">  {{userDetails.twitter_username ? "https://twitter.com/" + userDetails.twitter_username : "--"}}  </h6>
+           <a *ngIf="userDetails.twitter_username" class="twitter" [href]="'https://twitter.com/' + (userDetails.twitter_username ? userDetails.twitter_username : '')">  {{userDetails.twitter_username ? "https://twitter.com/" + userDetails.twitter_username : "--"}}  </a>
 
         </div>
    </div>
@@ -22,30 +22,38 @@
         </app-loader>
    </div>
    <div class="repositories">
-      <div class="listRepos" *ngIf="repos && repos.length>0">
+      <div class="listRepos" *ngIf="repos.length>0 && !loadingRepos">
             <ng-container *ngFor="let item of repos">
                <div class="repo">
                   <app-repository [repoDetails]="item"></app-repository>
                </div>
             </ng-container>
       </div>
-      <div style="height: 100%;width: 100%;" *ngIf="!repos || repos.length==0">
+      <div style="height: 100%;width: 100%;" *ngIf="loadingRepos">
          <app-loader style="height: 100%;width: 100%;" [type]="'repos'">
-          
          </app-loader>
-    </div>
-      <div class="pagination">
+      </div>
+      <div class="noRepos" *ngIf="!loadingRepos && repos.length==0 ">
+         <h2>No repositories available for this user..</h2>
+      </div>
+      <div class="pagination"  *ngIf="repos.length>0 && !loadingRepos">
          <ngb-pagination (pageChange)="changePage($event)"
          [(page)]="page"
          [pageSize]="pageSize"
          [collectionSize]="totalRepos"></ngb-pagination>
       </div>
-      <div class="paginationShort">
+      <div class="paginationShort"  *ngIf="repos.length>0 && !loadingRepos">
          <button [ngClass] = "{'disabled-cursor': !isEnabled(-1)}" class="btn btn-default pgBtn left" (click)="movePage(-1)">
             <img class="icon rot180" src="./assets/arrow.svg"/> Older </button>
          <button  [ngClass] = "{'disabled-cursor': !isEnabled(1)}" class="btn btn-default pgBtn right" (click)="movePage(1)">
             Newer <img class="icon " src="./assets/arrow.svg"/>  </button>
       </div>
    </div>
-
+</div>
+<div *ngIf="doesntExist" class="userPageDontExist">
+   <h1>OOOPS!</h1>
+   <h2>This username does not exist. Please try again with a correct user ID</h2>
+   <a href=".">
+      <button class="btn btn-md btn-info">Go Back</button>
+   </a>
 </div>

@@ -10,6 +10,7 @@ import { RepositoryComponent } from './repository/repository.component';
 import { LoaderComponent } from './loader/loader.component';
 import { UserComponent } from './user/user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
     NgbPaginationModule
   ],
   providers: [],

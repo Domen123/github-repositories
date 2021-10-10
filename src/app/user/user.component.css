@@ -92,3 +92,16 @@
    height: 1.25rem;
    margin: 0rem 0.5rem;
 }
+
+.noRepos{
+   padding: 5rem 2rem;
+   height: 100%;width: 100%;
+}
+
+.userPageDontExist{
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   padding: 5rem 3rem;
+   text-align: center;
+}

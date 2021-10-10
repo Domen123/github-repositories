@@ -1,0 +1,18 @@
+.input{
+   width: 75%;
+   padding: 0.5rem 2rem 0rem 0rem;
+}
+.goBtn{
+   width: 95%;
+   height: 2.2rem;
+}
+.bottom{
+   display: flex;
+}
+.goParent{
+   width: 25%;
+    padding: 0.25rem;
+}
+.landingPage{
+   padding: 6rem 2rem;
+}

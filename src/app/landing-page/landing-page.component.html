@@ -1,2 +1,17 @@
-<div>Hi</div>
-<div><h2>Please Enter Your Github user name to See the repositories</h2></div>
+<div class="landingPage">
+   <div>
+      <h2>Hi! Please Enter Your Github user name to See the repositories</h2>
+   </div>
+   <div class="bottom">
+      <div class="input">
+         <input style="    width: 100%;
+         height: 2rem;
+         padding: 0rem 2rem;"  type="text" placeholder="Github User Name" [(ngModel)]="this.userID"/>
+      </div>
+      <div class="goParent">
+         <button class="btn btn-info btn-md goBtn" (click)="go()">
+            Go!
+         </button>
+      </div>
+   </div>
+</div>
