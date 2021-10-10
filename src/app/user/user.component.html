@@ -22,7 +22,7 @@
         </app-loader>
    </div>
    <div class="repositories">
-      <div class="listRepos" *ngIf="repos.length>0 && !loadingRepos">
+      <div class="listRepos" *ngIf="(repos ? repos.length > 0 : false) && !loadingRepos">
             <ng-container *ngFor="let item of repos">
                <div class="repo">
                   <app-repository [repoDetails]="item"></app-repository>
@@ -36,16 +36,16 @@
       <div class="noRepos" *ngIf="!loadingRepos && repos.length==0 ">
          <h2>No repositories available for this user..</h2>
       </div>
-      <div class="pagination"  *ngIf="repos.length>0 && !loadingRepos">
+      <div class="pagination"  *ngIf="(repos ? repos.length > 0 : false) && !loadingRepos">
          <ngb-pagination (pageChange)="changePage($event)"
          [(page)]="page"
          [pageSize]="pageSize"
          [collectionSize]="totalRepos"></ngb-pagination>
       </div>
-      <div class="paginationShort"  *ngIf="repos.length>0 && !loadingRepos">
-         <button [ngClass] = "{'disabled-cursor': !isEnabled(-1)}" class="btn btn-default pgBtn left" (click)="movePage(-1)">
+      <div class="paginationShort"  *ngIf="(repos ? repos.length > 0 : false) && !loadingRepos">
+         <button [ngClass] = "{'disabled-cursor': !isEnabled(-1,totalRepos,pageSize,page)}" class="btn btn-default pgBtn left" (click)="movePage(-1)">
             <img class="icon rot180" src="./assets/arrow.svg"/> Older </button>
-         <button  [ngClass] = "{'disabled-cursor': !isEnabled(1)}" class="btn btn-default pgBtn right" (click)="movePage(1)">
+         <button  [ngClass] = "{'disabled-cursor': !isEnabled(1,totalRepos,pageSize,page)}" class="btn btn-default pgBtn right" (click)="movePage(1)">
             Newer <img class="icon " src="./assets/arrow.svg"/>  </button>
       </div>
    </div>

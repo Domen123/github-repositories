@@ -11,6 +11,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { UserComponent } from './user/user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,15 @@ import { FormsModule } from '@angular/forms';
     LoaderComponent,
     UserComponent
   ],
+
+
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    FormsModule,
+    FormsModule,RouterModule.forRoot([]),
     NgbPaginationModule
   ],
   providers: [],
