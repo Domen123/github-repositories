@@ -1,0 +1,51 @@
+<div class="userPage">
+   <div class="profile" *ngIf="userDetails">
+        <div class="avatar">
+           <div class="imgAvatar">
+               <img  class="img" [src]="userDetails.avatar_url" />
+           </div>
+           <div class="gitlink">
+            <img class="icon " src="./assets/link.svg"/>
+              <a [href]="'https://github.com/'+userID" target="_blank">  {{ 'https://github.com/' + userID}}</a>
+           </div>
+        </div>
+        <div class="details">
+           <h3 class="name"> {{userDetails.name}} </h3>
+           <h6  *ngIf="userDetails.bio"  class="bio"> {{userDetails.bio}} </h6>
+           <h6  *ngIf="userDetails.location"  class="location"> <img class="icon " src="./assets/location.svg"/>  {{userDetails.location}} </h6>
+           <h6 *ngIf="userDetails.twitter_username" class="twitter">  {{userDetails.twitter_username ? "https://twitter.com/" + userDetails.twitter_username : "--"}}  </h6>
+
+        </div>
+   </div>
+   <div class="profile" *ngIf="!userDetails">
+        <app-loader style="width: 100%;height: 100%;" [type]="'profile'">
+        </app-loader>
+   </div>
+   <div class="repositories">
+      <div class="listRepos" *ngIf="repos && repos.length>0">
+            <ng-container *ngFor="let item of repos">
+               <div class="repo">
+                  <app-repository [repoDetails]="item"></app-repository>
+               </div>
+            </ng-container>
+      </div>
+      <div style="height: 100%;width: 100%;" *ngIf="!repos || repos.length==0">
+         <app-loader style="height: 100%;width: 100%;" [type]="'repos'">
+          
+         </app-loader>
+    </div>
+      <div class="pagination">
+         <ngb-pagination (pageChange)="changePage($event)"
+         [(page)]="page"
+         [pageSize]="pageSize"
+         [collectionSize]="totalRepos"></ngb-pagination>
+      </div>
+      <div class="paginationShort">
+         <button [ngClass] = "{'disabled-cursor': !isEnabled(-1)}" class="btn btn-default pgBtn left" (click)="movePage(-1)">
+            <img class="icon rot180" src="./assets/arrow.svg"/> Older </button>
+         <button  [ngClass] = "{'disabled-cursor': !isEnabled(1)}" class="btn btn-default pgBtn right" (click)="movePage(1)">
+            Newer <img class="icon " src="./assets/arrow.svg"/>  </button>
+      </div>
+   </div>
+
+</div>

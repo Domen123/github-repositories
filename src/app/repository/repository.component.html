@@ -1,0 +1,11 @@
+
+<div class="repoCard">
+   <span [title]="repoDetails.name" class="header">{{repoDetails ? repoDetails.name : ''}}</span>
+   <div  [title]="repoDetails.description" class="description">{{repoDetails? repoDetails.description :''}}</div>
+   <div  class="row">
+      <ng-container  *ngFor="let item of repoDetails.topics;let i=index ">
+            <span [title]="item" *ngIf="i<6" class="topic">{{ item }}</span>
+      </ng-container>
+   </div>
+   
+</div>
