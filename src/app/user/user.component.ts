@@ -56,17 +56,17 @@ export class UserComponent implements OnInit {
     this.getRepositories(this.userID,this.page,this.pageSize)
   }
 
-  isEnabled(type){
+  isEnabled(type,totalRepos,pagesize,page){
     if(type==-1){
-      return this.page + type>=1 
+      return page + type>=1 
     }
     else{
-      return this.page + type <=  Math.floor(this.totalRepos/this.pageSize)+1;
+      return page + type <=  Math.floor(totalRepos/pagesize)+1;
     }
   }
 
   movePage(type){
-    if(this.isEnabled(type)){
+    if(this.isEnabled(type,this.totalRepos,this.pageSize,this.page)){
       this.page = this.page + type;
       this.changePage(this.page)
     }
