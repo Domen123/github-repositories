@@ -1,16 +1,20 @@
 {
   "name": "github-repositories",
   "version": "0.0.0",
+  "engines": { "node": "8.9.4", "npm": "5.6.0" },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "~10.0.8",
+    "@angular/compiler-cli": "~10.0.14",
     "@angular/animations": "~10.0.14",
     "@angular/common": "~10.0.14",
     "@angular/compiler": "~10.0.14",
@@ -24,7 +28,9 @@
     "bootstrap": "^4.5.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.10.3",
+    
+    "typescript": "~3.9.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.8",
