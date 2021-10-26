@@ -1,4 +1,4 @@
-<div style="width: 100%;height: inherit;display: flex;" *ngIf="type=='profile'">
+<div class="profile" *ngIf="type=='profile'">
    <div class="avatar">
       <div class="imgAvatar loading">
           <span class="img"  ></span>
@@ -19,7 +19,7 @@
       </h6>
    </div>
 </div>
-<div class="listReposLoader" style="width: 100%;height: inherit;" *ngIf="type=='repos'">
+<div class="listReposLoader" *ngIf="type=='repos'">
    <div class="repo" *ngFor="let x of [0,1,2,3,4,5]">
       <div class="repoCard">
          <div class="description hi2 loading"> </div>

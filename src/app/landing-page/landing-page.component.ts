@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -7,11 +7,17 @@ import { Router } from '@angular/router';
 })
 export class LandingPageComponent implements OnInit {
   public userID:string = "";
-  constructor(private route:Router)  { }
+  public query:string = "";
+  constructor()  { }
+  search = _.debounce(this.searchQuery,500)
 
   ngOnInit(): void {
   }
   go(){
-    this.route.navigate([`/user/${this.userID}`]);
+    this.search();
+    // this.route.navigate([`/user/${this.userID}`]);
+  }
+  searchQuery(){
+    this.query = this.userID;
   }
 }
