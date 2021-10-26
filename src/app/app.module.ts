@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +11,8 @@ import { UserComponent } from './user/user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { InterceptorProviders } from './intercepter.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,9 +21,6 @@ import { RouterModule } from '@angular/router';
     LoaderComponent,
     UserComponent
   ],
-
-
-  
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -32,7 +29,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,RouterModule.forRoot([]),
     NgbPaginationModule
   ],
-  providers: [],
+  providers: [InterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,54 +1,88 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit,Input, OnChanges, OnDestroy } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit,OnChanges,OnDestroy {
+  @Input() userName = ''; 
   public doesntExist: boolean=false;
+  public showAnything: boolean=false;
   public loadingRepos: boolean=true;
   public userID: string;
-  public userDetails: any = null;
-  public repos: any = null;
+  public userDetails: {} = {};
+  public repos: {} = {};
   public totalRepos:number = 0;
   public pageSize:number = 6;
   public page:number = 1;
+  private subscriptions = new Subscription();
   constructor(
-    private route: ActivatedRoute,
     private api: ApiService
     ) { }
 
   ngOnInit(): void {
-    this.userID = this.route.snapshot.paramMap.get('userID');
-    setTimeout(()=>{
+    this.getDetails();
+  }
+  ngOnChanges(){
+    this.getDetails();
+  }
+  private getDetails(){
+    this.doesntExist = false;
+    this.userID = this.userName;
+    if(this.userID){
+      this.showAnything = true;
       this.getUserDetails(this.userID);
       this.getRepositories(this.userID,this.page,this.pageSize);
-    },2000);
+    }
+    else{
+      this.showAnything = false;
+    }
   }
 
-  private async getUserDetails(userID){
+  private getUserDetails(userID){
     try{
-      this.userDetails = await this.api.getUserDetails(userID);
-      if(this.userDetails){
-        this.totalRepos = this.userDetails.public_repos ? this.userDetails.public_repos : 0;
-      }
-      else{
+      this.userDetails = null;
+      this.subscriptions.add(this.api.getUserDetails(userID).subscribe((data) => {
+        this.userDetails = data; 
+        if(this.userDetails){
+          this.totalRepos = _.get(this.userDetails,'public_repos',0);
+        }
+        else{
+          this.doesntExist = true;
+        }
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+        this.totalRepos = _.get(this.userDetails,'public_repos',0);
         this.doesntExist = true;
-      }
+      }));
     }
     catch{
       this.doesntExist = true;
     }
   }
 
-  private async getRepositories(userID,page,pageSize){
-    this.loadingRepos = true;
-    this.repos = [];
-    this.repos = await this.api.getUserRepos(userID,page,pageSize) ;
-    this.loadingRepos = false;
+  private getRepositories(userID,page,pageSize){
+    try{
+      this.loadingRepos = true;
+      this.repos = [];
+      this.subscriptions.add(this.api.getUserRepos(userID,page,pageSize).subscribe((data) => {
+        this.repos = data;
+        this.loadingRepos = false;
+      },
+      (err) => {
+        console.log('HTTP Error', err);
+        this.repos = [];
+        this.loadingRepos = false;
+      })
+        );
+    }
+    catch{
+      this.loadingRepos = false;
+    }
   }
 
   changePage(page){
@@ -71,5 +105,11 @@ export class UserComponent implements OnInit {
       this.changePage(this.page)
     }
   }
+  ngOnDestroy(){
+    this.subscriptions.unsubscribe();
+  }
 
+  public _get(obj, path,def){
+    return _.get(obj, path, def);
+  }
 }
